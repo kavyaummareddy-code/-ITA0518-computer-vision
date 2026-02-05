@@ -1,5 +1,5 @@
 import cv2
-img = cv2.imread("car.jpg")
+img = cv2.imread("home.jpg")
 if img is None:
     print("Image not found")
     exit()
