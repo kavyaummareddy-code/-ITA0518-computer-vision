@@ -1,0 +1,23 @@
+import cv2
+
+# Read the image
+img = cv2.imread("car.jpg")
+
+# Check if image is loaded
+if img is None:
+    print("Image not found")
+    exit()
+
+# Resize to smaller size
+small = cv2.resize(img, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
+
+# Resize to bigger size
+big = cv2.resize(img, None, fx=1.5, fy=1.5, interpolation=cv2.INTER_LINEAR)
+
+# Display images
+cv2.imshow("Original Image", img)
+cv2.imshow("Smaller Image", small)
+cv2.imshow("Bigger Image", big)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
