@@ -1,0 +1,23 @@
+import cv2
+
+# Read image
+img = cv2.imread("car.jpg")
+
+# Check if image loaded
+if img is None:
+    print("Image not found")
+    exit()
+
+# Define ROI (crop)
+# Format: img[y1:y2, x1:x2]
+roi = img[100:300, 200:400]
+
+# Copy ROI and paste it at another location
+img[10:210, 10:210] = roi
+
+# Display images
+cv2.imshow("Original Image", img)
+cv2.imshow("Cropped ROI", roi)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
