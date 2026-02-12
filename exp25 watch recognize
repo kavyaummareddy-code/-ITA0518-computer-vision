@@ -1,0 +1,36 @@
+import cv2
+
+# Read reference watch image
+watch = cv2.imread("watch.jpg", 0)
+
+# Read test image
+test = cv2.imread("test_image.jpg", 0)
+
+# Check images
+if watch is None or test is None:
+    print("Image not found")
+    exit()
+
+# ORB detector
+orb = cv2.ORB_create()
+
+# Find keypoints and descriptors
+kp1, des1 = orb.detectAndCompute(watch, None)
+kp2, des2 = orb.detectAndCompute(test, None)
+
+# Matcher
+bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+
+# Match descriptors
+matches = bf.match(des1, des2)
+
+# Sort matches by distance
+matches = sorted(matches, key=lambda x: x.distance)
+
+# Draw matches
+result = cv2.drawMatches(watch, kp1, test, kp2, matches[:20], None, flags=2)
+
+# Display result
+cv2.imshow("Watch Recognition", result)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
