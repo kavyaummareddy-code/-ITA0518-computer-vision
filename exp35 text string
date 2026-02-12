@@ -1,0 +1,41 @@
+import cv2
+import numpy as np
+
+# Function to create image and display text
+def create_image():
+
+    # Get image size
+    width = int(input("Enter image width: "))
+    height = int(input("Enter image height: "))
+
+    # Get text from user
+    text = input("Enter text to display: ")
+
+    # Create white image
+    img = np.ones((height, width, 3), dtype=np.uint8) * 255
+
+    # Text position
+    position = (50, height // 2)
+
+    # Font
+    font = cv2.FONT_HERSHEY_SIMPLEX
+
+    # Font scale
+    font_scale = 1
+
+    # Color (Red in BGR)
+    color = (0, 0, 255)
+
+    # Thickness
+    thickness = 2
+
+    # Put text on image
+    cv2.putText(img, text, position, font, font_scale, color, thickness)
+
+    # Show image
+    cv2.imshow("Text Image", img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+# Call function
+create_image()
