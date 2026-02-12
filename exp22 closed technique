@@ -1,0 +1,27 @@
+import cv2
+import numpy as np
+
+# Read image in grayscale
+image = cv2.imread("image3.png", 0)
+
+# Check image
+if image is None:
+    print("Error: Image not found")
+    exit()
+
+# Convert to binary (recommended for morphology)
+_, binary = cv2.threshold(image, 127, 255, cv2.THRESH_BINARY)
+
+# Create structuring element (kernel)
+kernel = np.ones((5, 5), np.uint8)
+
+# Apply Closing (Dilation followed by Erosion)
+closed = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel)
+
+# Display results
+cv2.imshow("Original Image", image)
+cv2.imshow("Binary Image", binary)
+cv2.imshow("Closed Image", closed)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
