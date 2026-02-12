@@ -1,0 +1,31 @@
+import cv2
+import numpy as np
+
+# Read the image
+img = cv2.imread("car.jpg")
+
+# Check if image is loaded
+if img is None:
+    print("Image not found")
+    exit()
+
+rows, cols, ch = img.shape
+
+# Define 4 points in the input image (source points)
+pts1 = np.float32([[50,50], [200,50], [50,200], [200,200]])
+
+# Define 4 points for output image (destination points)
+pts2 = np.float32([[0,0], [300,0], [0,300], [300,300]])
+
+# Get the Perspective Transform matrix
+M = cv2.getPerspectiveTransform(pts1, pts2)
+
+# Apply the perspective transformation
+dst = cv2.warpPerspective(img, M, (300, 300))
+
+# Display images
+cv2.imshow("Original Image", img)
+cv2.imshow("Perspective Transformed Image", dst)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
