@@ -1,0 +1,30 @@
+import cv2
+import numpy as np
+
+# Read the image
+img = cv2.imread("car.jpg")
+
+# Check if image is loaded
+if img is None:
+    print("Image not found")
+    exit()
+
+# Convert to grayscale
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# Convert to float32
+gray = np.float32(gray)
+
+# Detect corners using Harris Corner Detection
+dst = cv2.cornerHarris(gray, blockSize=2, ksize=3, k=0.04)
+
+# Dilate the corners to make them more visible
+dst = cv2.dilate(dst, None)
+
+# Mark the corners in red
+img[dst > 0.01 * dst.max()] = [0, 0, 255]
+
+# Display the result
+cv2.imshow("Harris Corners", img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
